@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="10.0.000">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="10.0.000" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="10.0.000" expanded="true" height="68" name="Retrieve ukr" width="90" x="45" y="34">
+        <parameter key="repository_entry" value="../labaRapid/ukr"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="10.0.000" expanded="true" height="68" name="Retrieve rus" width="90" x="45" y="136">
+        <parameter key="repository_entry" value="../labaRapid/rus"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="10.0.000" expanded="true" height="82" name="Join" width="90" x="246" y="85">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="inner"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="Date" value="Date"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="10.0.000" expanded="true" height="68" name="Retrieve ukr (3)" width="90" x="45" y="391">
+        <parameter key="repository_entry" value="../labaRapid/ukr"/>
+      </operator>
+      <operator activated="true" class="series:windowing" compatibility="7.4.000" expanded="true" height="82" name="Windowing (2)" width="90" x="179" y="391">
+        <parameter key="series_representation" value="encode_series_by_examples"/>
+        <parameter key="window_size" value="5"/>
+        <parameter key="step_size" value="1"/>
+        <parameter key="create_single_attributes" value="true"/>
+        <parameter key="create_label" value="true"/>
+        <parameter key="select_label_by_dimension" value="false"/>
+        <parameter key="label_attribute" value="Ukraine"/>
+        <parameter key="horizon" value="0"/>
+        <parameter key="add_incomplete_windows" value="false"/>
+        <parameter key="stop_on_too_small_dataset" value="true"/>
+      </operator>
+      <operator activated="true" class="select_attributes" compatibility="10.0.000" expanded="true" height="82" name="Select Attributes" width="90" x="313" y="391">
+        <parameter key="attribute_filter_type" value="subset"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value="|Date-5|Date-6|Date-7|Date-8|Date-9|Date-10|Date-11|Date-12|Date-13|Date-14|Date-15|Date-16|Date-17|Date-18|Date-19|Date-20|Date-21|Date-22|Date-23|Date-24|Date-25|Date-26|Date-27|Date-28|Date-29|Date-30|Date-31|Date-32|Date-33|Date-34|Date-35|Date-36|Date-37|Date-38|Date-39|Date-40|Date-41|Date-42|Date-43|Date-44|Date-45|Date-46|Date-47|Date-48|Date-49|Date-50|Date-51|Date-52|Date-53|Date-54|Date-55|Date-56|Date-57|Date-58|Date-59|Date-60|Date-61|Date-62|Date-63|Date-64|Date-65|Date-66|Date-67|Date-68|Date-69|Date-70|Date-71|Date-72|Date-73|Date-74|Date-75|Date-76|Date-77|Date-78|Date-79|Date-80|Date-81|Date-82|Date-83|Date-84|Date-85|Date-86|Date-87|Date-88|Date-89|Date-90|Date-91|Date-92|Date-93|Date-94|Date-95|Date-96|Date-97|Date-98|Date-99|label|Ukraine-0|Ukraine-1|Ukraine-2|Ukraine-3|Ukraine-4|Ukraine-5|Ukraine-6|Ukraine-7|Ukraine-8|Ukraine-9|Ukraine-10|Ukraine-11|Ukraine-12|Ukraine-13|Ukraine-14|Ukraine-15|Ukraine-16|Ukraine-17|Ukraine-18|Ukraine-19|Ukraine-20|Ukraine-21|Ukraine-22|Ukraine-23|Ukraine-24|Ukraine-25|Ukraine-26|Ukraine-27|Ukraine-28|Ukraine-29|Ukraine-30|Ukraine-31|Ukraine-32|Ukraine-33|Ukraine-34|Ukraine-35|Ukraine-36|Ukraine-37|Ukraine-38|Ukraine-39|Ukraine-40|Ukraine-41|Ukraine-42|Ukraine-43|Ukraine-44|Ukraine-45|Ukraine-46|Ukraine-47|Ukraine-48|Ukraine-49|Ukraine-50|Ukraine-51|Ukraine-52|Ukraine-53|Ukraine-54|Ukraine-55|Ukraine-56|Ukraine-57|Ukraine-58|Ukraine-59|Ukraine-60|Ukraine-61|Ukraine-62|Ukraine-63|Ukraine-64|Ukraine-65|Ukraine-66|Ukraine-67|Ukraine-68|Ukraine-69|Ukraine-70|Ukraine-71|Ukraine-72|Ukraine-73|Ukraine-74|Ukraine-75|Ukraine-76|Ukraine-77|Ukraine-78|Ukraine-79|Ukraine-80|Ukraine-81|Ukraine-82|Ukraine-83|Ukraine-84|Ukraine-85|Ukraine-86|Ukraine-87|Ukraine-88|Ukraine-89|Ukraine-90|Ukraine-91|Ukraine-92|Ukraine-93|Ukraine-94|Ukraine-95|Ukraine-96|Ukraine-97|Ukraine-98|Ukraine-99|Date-0"/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="attribute_value"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="time"/>
+        <parameter key="block_type" value="attribute_block"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="value_matrix_row_start"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="split_data" compatibility="10.0.000" expanded="true" height="103" name="Split Data" width="90" x="447" y="340">
+        <enumeration key="partitions">
+          <parameter key="ratio" value="0.8"/>
+          <parameter key="ratio" value="0.2"/>
+        </enumeration>
+        <parameter key="sampling_type" value="automatic"/>
+        <parameter key="use_local_random_seed" value="false"/>
+        <parameter key="local_random_seed" value="1992"/>
+      </operator>
+      <operator activated="true" class="set_role" compatibility="10.0.000" expanded="true" height="82" name="Set Role" width="90" x="514" y="187">
+        <parameter key="attribute_name" value="label"/>
+        <parameter key="target_role" value="label"/>
+        <list key="set_additional_roles">
+          <parameter key="Date-0" value="id"/>
+        </list>
+      </operator>
+      <operator activated="true" class="neural_net" compatibility="10.0.000" expanded="true" height="82" name="Neural Net" width="90" x="648" y="187">
+        <list key="hidden_layers"/>
+        <parameter key="training_cycles" value="200"/>
+        <parameter key="learning_rate" value="0.01"/>
+        <parameter key="momentum" value="0.9"/>
+        <parameter key="decay" value="false"/>
+        <parameter key="shuffle" value="true"/>
+        <parameter key="normalize" value="true"/>
+        <parameter key="error_epsilon" value="1.0E-4"/>
+        <parameter key="use_local_random_seed" value="false"/>
+        <parameter key="local_random_seed" value="1992"/>
+      </operator>
+      <operator activated="true" class="apply_model" compatibility="10.0.000" expanded="true" height="82" name="Apply Model" width="90" x="715" y="493">
+        <list key="application_parameters"/>
+        <parameter key="create_view" value="false"/>
+      </operator>
+      <operator activated="true" class="set_role" compatibility="10.0.000" expanded="true" height="82" name="Set Role (2)" width="90" x="782" y="340">
+        <parameter key="attribute_name" value="prediction(label)"/>
+        <parameter key="target_role" value="prediction"/>
+        <list key="set_additional_roles"/>
+      </operator>
+      <operator activated="true" class="performance" compatibility="10.0.000" expanded="true" height="82" name="Performance" width="90" x="849" y="136">
+        <parameter key="use_example_weights" value="true"/>
+      </operator>
+      <connect from_op="Retrieve ukr" from_port="output" to_op="Join" to_port="left"/>
+      <connect from_op="Retrieve rus" from_port="output" to_op="Join" to_port="right"/>
+      <connect from_op="Join" from_port="join" to_port="result 1"/>
+      <connect from_op="Retrieve ukr (3)" from_port="output" to_op="Windowing (2)" to_port="example set input"/>
+      <connect from_op="Windowing (2)" from_port="example set output" to_op="Select Attributes" to_port="example set input"/>
+      <connect from_op="Select Attributes" from_port="example set output" to_op="Split Data" to_port="example set"/>
+      <connect from_op="Split Data" from_port="partition 1" to_op="Set Role" to_port="example set input"/>
+      <connect from_op="Split Data" from_port="partition 2" to_op="Apply Model" to_port="unlabelled data"/>
+      <connect from_op="Set Role" from_port="example set output" to_op="Neural Net" to_port="training set"/>
+      <connect from_op="Neural Net" from_port="model" to_op="Apply Model" to_port="model"/>
+      <connect from_op="Apply Model" from_port="labelled data" to_op="Set Role (2)" to_port="example set input"/>
+      <connect from_op="Apply Model" from_port="model" to_port="result 4"/>
+      <connect from_op="Set Role (2)" from_port="example set output" to_op="Performance" to_port="labelled data"/>
+      <connect from_op="Performance" from_port="performance" to_port="result 2"/>
+      <connect from_op="Performance" from_port="example set" to_port="result 3"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+      <portSpacing port="sink_result 4" spacing="0"/>
+      <portSpacing port="sink_result 5" spacing="0"/>
+    </process>
+  </operator>
+</process>
